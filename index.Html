@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الساحِرة المُستديرة _ Al Sahira Al Mostadira</title>
+    
+    <style>
+        
+       /* تنسيق شريط الدوري */
+.league-header {
+    background: var(--primary);
+    color: white;
+    padding: 15px 20px;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.league-header:hover {
+    background: var(--accent);
+}
+
+.league-header .arrow {
+    transition: transform 0.3s;
+    font-size: 18px;
+}
+
+/* تدوير السهم عند الفتح */
+.league-header.active .arrow {
+    transform: rotate(180deg);
+}
+
+/* حاوية الجدول المخفية */
+.league-content {
+    display: none;
+    overflow-x: auto;
+    margin-bottom: 20px;
+    animation: slideDown 0.4s ease-out;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+} 
+        :root {
+            --bg: #f0f2f5;
+            --text: #1c1e21;
+            --card: #ffffff;
+            --primary: #000000; 
+            --accent:  #6c0000;
+            --footer: #1a1a1a;
+        }
+
+        [data-theme="dark"] {
+            --bg: #121212;
+            --text: #e4e6eb;
+            --card: #1e1e1e;
+            --primary: #000000;
+            --accent: #6c0000;
+            --footer: #000000;
+        }
+
+        
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            margin: 0;
+            transition: 0.3s;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background: var(--primary);
+            color: rgb(255, 255, 255);
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            background: var(--accent);
+            padding: 13px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            flex-wrap: wrap;
+        }
+        
+        nav a {
+            color: rgb(255, 255, 255);
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 15px;
+            padding: 10px 25px;
+            transition: 0.3s;
+        }
+        
+        nav a:hover {
+            text-decoration: underline;
+            transform: scale(1.05);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            min-height: 500px;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 2.5fr 1fr;
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--card);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--card);
+        }
+        
+        th, td {
+            border:  2px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+        
+        th {
+            background: var(--primary);
+            color: white;
+        }
+
+        .media-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        input, textarea {
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background: var(--card);
+            color: var(--text);
+        }
+        
+        .err-msg {
+            color: #d32f2f;
+            font-size: 12px;
+            display: none;
+        }
+
+        footer {
+           display: grid;
+           grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+           background: var(--footer);
+           color: #ccc;
+           padding: 40px 5%;
+           gap: 30px;
+           margin-top: 40px;
+           border-top: 5px solid var(--accent); /* الخط اللي فوق */
+           text-align: center;
+        }
+
+/* عناوين الفوتر */
+        footer h3 {
+          color: #fff;
+          margin-bottom: 15px;
+          position: relative;
+        }
+
+/* خط صغير تحت العنوان */
+        footer h3::after {
+          content: "";
+          display: block;
+          width: 100px;
+          height: 3px;
+          background: linear-gradient(to left, var(--accent), transparent);
+          margin: 8px auto 0;
+          border-radius: 3px;
+        }
+
+
+/* النصوص */
+        footer p {
+          margin: 8px 0;
+          font-size: 14px;
+          transition: 0.3s;
+          cursor: pointer;
+        }
+
+/* Hover */
+       footer p:hover {
+          color: #fff;
+          transform: translateX(-5px);
+        }
+
+/* خط سفلي للحقوق */
+       footer .copyright {
+          grid-column: 1 / -1;
+          text-align: center;
+          border-top: 1px solid #444;
+          padding-top: 15px;
+          margin-top: 20px;
+          font-size: 13px;
+          color: #888;
+}
+
+
+        .hidden {
+            display: none;
+        }
+        
+        .btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        
+        .btn:hover {
+    background: #a00000;
+    box-shadow: 0 0 10px #6c0000, 0 0 20px #6c0000;
+    transform: scale(1.05);
+}
+
+
+        /* تنسيق الصفحات الجديدة */
+        .team-card, .tournament-card {
+            background: var(--card);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        
+        .team-card:hover, .tournament-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+        
+        .team-card img, .tournament-card img {
+            width: 42%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            
+        }
+        
+/* الحاوية الكبيرة للكروت */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    padding: 50px;
+}
+
+/* الكارت نفسه */
+.player-card {
+    background-color: var(--card); /* ديناميكي */
+    color: var(--text);           /* ديناميكي */
+    border-radius: 50px;
+    overflow: hidden;
+    border: 7px solid rgba(0,0,0,0.1);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+}
+
+/* ضبط حجم الصور - ده أهم جزء */
+.player-card img {
+    width: 100%;
+    height: 200px; /* ارتفاع ثابت لكل الصور */
+    object-fit: cover; /* بيخلي الصورة تملا المساحة من غير ما تتمط */
+    object-position: top; /* عشان يركز على وش اللاعب */
+    border-bottom: 3px solid #333;
+}
+
+/* تنسيق الإحصائيات داخل الكارت */
+.player-info-new {
+    padding: 20px;
+    flex-grow: 1;
+}
+
+.player-info-new h4 {
+    text-align: center;
+    font-size: 1.3em;
+    margin-bottom: 15px;
+    display: block;
+}
+
+/* صف الإحصائية الواحدة */
+.stat-item {
+    display: flex;
+    justify-content: space-between; /* بيخلي الكلام يمين والرقم شمال */
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 5px solid rgba(255, 0, 0, 0.05);
+}
+
+.stat-item:last-child {
+    border: none;
+}
+
+.stat-label {
+    color: #aaa; /* لون رمادي هادي للاسم */
+    font-size: 0.9em;
+    direction: rtl;
+}
+
+.stat-value {
+    color: #fff; /* لون أبيض واضح للرقم */
+    font-weight: bold;
+    direction: ltr; /* عشان الأرقام تظهر صح */
+}
+/* تأثير الوقوف بالماوس على الكارت بالكامل */
+.player-card {
+    /* ... الكود اللي عندك ... */
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* حركة مرنة احترافية */
+    cursor: pointer;
+}
+
+.player-card:hover {
+    transform: translateY(-10px); /* الكارت يترفع لفوق */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3); /* ضل قوي يدي إحساس بالعمق */
+    border-color: var(--accent); /* يغير لون الإطار للون الموقع الأساسي */
+}
+
+/* تأثير خاص بالصورة لما تقف عليها */
+.player-card img {
+    /* ... الكود اللي عندك ... */
+    transition: transform 1s ease;
+}
+
+.player-card:hover img {
+    transform: scale(1.1); /* زووم خفيف للصورة داخل الكارت */
+    filter: brightness(1.1); /* تفتيح بسيط للصورة */
+}
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .gallery-img {
+            width: 65%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .gallery-img:hover {
+            transform: scale(1.05);
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(214, 0, 0, 0.9);
+            z-index: 1000;
+            cursor: pointer;
+        }
+        
+        .modal-img {
+            max-width: 90%;
+            max-height: 90%;
+            margin: auto;
+            display: block;
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        @media (max-width: 768px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            nav a {
+                font-size: 12px;
+            }
+        }
+        /* زرار الوضع */
+       .theme-toggle {
+           background: #ffffff;
+           border-radius: 50%;
+           width: 40px;
+           height: 40px;
+           border: none;
+           cursor: pointer;
+           transition: 0.3s;
+        }
+
+       .theme-toggle:hover {
+          transform: rotate(180deg);
+        }
+
+
+       .login-btn {
+         background: #ffffff;
+         border: none;
+         padding: 8px 12px;
+         border-radius: 20px;
+         color: rgb(255, 0, 0);
+         cursor: pointer;
+        }
+
+
+      .login-modal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.6);
+        backdrop-filter: blur(5px);
+        justify-content: center;
+        align-items: center;
+       }
+
+
+     .login-box {
+       background: rgb(51, 48, 48);
+       padding: 20px;
+      border-radius: 10px;
+      width: 300px;
+      text-align: center;
+      animation: scaleIn 0.3s;
+      }
+
+    @keyframes scaleIn {
+     from {transform: scale(0.7); opacity:0;}
+     to {transform: scale(1); opacity:1;}
+      }
+
+   .login-box input {
+     color: #ffffff;
+     width: 90%;
+     margin: 10px 0;
+     padding: 10px;
+     }
+
+   .login-box button {
+    width: 100%;
+    padding: 10px;
+    background: #6c0000;
+    color: white;
+    border: none;
+    cursor: pointer;
+     }
+
+  .close-btn {
+     float: left;
+     cursor: pointer;
+    }
+
+  #table table, 
+  #table th, 
+  #table td {
+    border: none;
+     }
+     /* الوضع الساطع: إجبار النصوص على الأسود */
+body:not(.dark-mode) .player-card p,
+body:not(.dark-mode) .player-card h3,
+body:not(.dark-mode) .player-card span {
+    color: #000000 !important;
+}
+
+/* الوضع الداكن: إجبار النصوص على الأبيض */
+body.dark-mode .player-card p,
+body.dark-mode .player-card h3,
+body.dark-mode .player-card span {
+    color: #ffffff !important;
+}
+    </style>
+</head>
+<body>
+    <div id="loginModal" class="login-modal">
+     <div class="login-box">
+        <span class="close-btn" onclick="closeLogin()">×</span>
+        <h2 style="color: #ffffff;">سجل ي كوتش💪</h2>
+
+        <input type="text" id="loginUser" placeholder="اسم المستخدم">
+        <input type="password" id="loginPass" placeholder="كلمة المرور">
+
+        <button onclick="login()">دخول</button>
+     </div>
+    </div>
+    <header>
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <img src="logo.png" alt="logo" style="height:70px;">
+            <h1 style="margin: 0; font-size: 24px;">الساحِرة المُستديرة _ Al Sahira Al Mostadira</h1>
+        </div>
+        
+        <div style="display:flex; gap:10px; align-items:center;">
+    
+    <input type="text" id="searchInput" placeholder="🔍 ابحث..."
+    style="padding:8px; border-radius:20px; border:none; width:180px;">
+
+    <button class="login-btn" onclick="openLogin()">👤</button>
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙</button>
+
+</div>
+        
+    </header>
+
+    <nav>
+        <a onclick="showPage('home')">الرئيسية</a>
+        <a onclick="showPage('matches')">المباريات</a>
+        <a onclick="showPage('table')">جدول الترتيب</a>
+        <a onclick="showPage('teams')">أخبار الفرق</a>
+        <a onclick="showPage('stats')">احصائيات اللاعبين</a>
+        <a onclick="showPage('tournaments')">البطولات</a>
+        <a onclick="showPage('contact')">اتصل بنا</a>
+    </nav>
+
+    <div class="container">
+        
+        <!-- الصفحة 1: الرئيسية -->
+        <section id="home" class="page">
+            <div class="hero-grid">
+                <article class="card">
+                    <h2>أخبار الكرة العالمية والمحلية</h2>
+                    <p>أهلاً بك في "الساحِرة المُستديرة ". نقدم لكم أحدث أخبار كرة القدم، جداول الترتيب، إحصائيات اللاعبين، وكل ما يخص عالم الساحرة المستديرة.</p>
+                    <img src="image.jpeg" usemap="#koraMap" style="width: 100%; border-radius: 5px;">
+                    <map name="koraMap">
+                        <area shape="rect" coords="0,0,800,350" href="#" onclick="alert('مرحباً بك في الساحِرة المُستديرة ! أحدث الأخبار الرياضية لحظة بلحظة.')">
+                    </map>
+                </article>
+                <aside>
+                    <div class="card">
+                        <h3>ملخص المباراه</h3>
+                        <audio controls style="width: 100%;">
+                            <source src="99.mp3" type="audio/mpeg">
+                            متصفحك لا يدعم تشغيل الصوت
+                        </audio>
+                        <hr>
+                        <h3>موقع الساحِرة المُستديرة </h3>
+                        <video controls style="width: 100%;">
+                            <source src="video home.mp4" type="video/mp4">
+                            متصفحك لا يدعم تشغيل الفيديو
+                        </video>
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+        <!-- الصفحة 2: المباريات -->
+        <section id="matches" class="page hidden">
+            <div class="card">
+                <h2>جدول مباريات اليوم</h2>
+                <div class="media-grid">
+                    <div class="card">
+                        <h4>🎬 فيديو: ملخص مباراة الأمس</h4>
+                        <video controls style="width: 100%;">
+                            <source src="video 2.mp4" type="video/mp4">
+                            متصفحك لا يدعم تشغيل الفيديو
+                        </video>
+                    </div>
+                    <div class="card">
+                        <h4>📍 موقع الاستاد الدولي</h4>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3456.789!2d31.2001!3d29.9782!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjnCsDU4JzQxLjYiTiAzMcKwMTInMDAuNCJF!5e0!3m2!1sen!2seg!4v1640000000000!5m2!1sen!2seg" width="100%" height="150" style="border:0;" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <table style="margin-top: 20px;">
+                    <thead>
+                        <tr><th>الوقت</th><th>المباراة</th><th>القناة</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>18:00</td><td>الأهلي × الزمالك</td><td>ON Time Sports</td></tr>
+                        <tr><td>20:00</td><td>برشلونة × ريال مدريد</td><td>beIN Sports</td></tr>
+                        <tr><td>22:00</td><td>مانشستر سيتي × ليفربول</td><td>Sky Sports</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- الصفحة 3: جدول الترتيب -->
+         <section id="table" class="page hidden">
+    <div class="card">
+        <h2>جداول ترتيب الدوريات الكبرى</h2>
+
+        <!-- الدوري الإسباني -->
+        <div class="league-wrapper">
+            <div class="league-header" onclick="toggleLeague('laliga')">
+                <span>🇪🇸 الدوري الإسباني (LaLiga)</span>
+                <span class="arrow">▼</span>
+            </div>
+            <div id="laliga" class="league-content">
+                <table>
+                    <thead>
+                        <tr><th>#</th><th>الفريق</th><th>لعب</th><th>فوز</th><th>تعادل</th><th>خسارة</th><th>نقاط</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1</td><td>برشلونة</td><td>34</td><td>29</td><td>1</td><td>4</td><td>88</td></tr>
+                        <tr><td>2</td><td>ريال مدريد</td><td>34</td><td>24</td><td>5</td><td>5</td><td>77</td></tr>
+                        <tr><td>3</td><td>فياريال</td><td>34</td><td>21</td><td>5</td><td>8</td><td>68</td></tr> <tr><td>4</td><td>أتلتيكو مدريد</td><td>34</td><td>19</td><td>6</td><td>9</td><td>63</td></tr>
+                        <tr><td>5</td><td>ريال بيتيس</td><td>34</td><td>13</td><td>14</td><td>7</td><td>53</td></tr>
+                        <tr><td>6</td><td>سيلتا فيغو</td><td>34</td><td>12</td><td>11</td><td>11</td><td>47</td></tr>
+                        <tr><td>7</td><td>خيتافي</td><td>34</td><td>13</td><td>5</td><td>16</td><td>44</td></tr>
+                        <tr><td>8</td><td>أثلتيك بلباو</td><td>34</td><td>13</td><td>5</td><td>16</td><td>44</td></tr>
+                        <tr><td>9</td><td>ريال سوسيداد</td><td>34</td><td>11</td><td>10</td><td>13</td><td>43</td></tr>
+                        <tr><td>10</td><td>أوساسونا</td><td>34</td><td>11</td><td>9</td><td>14</td><td>42</td></tr>
+                        <tr><td>11</td><td>رايو فايكانو</td><td>34</td><td>10</td><td>12</td><td>12</td><td>42</td></tr>
+                        <tr><td>12</td><td>فالنسيا</td><td>34</td><td>10</td><td>9</td><td>15</td><td>39</td></tr>
+                        <tr><td>13</td><td>إسبانيول</td><td>34</td><td>10</td><td>9</td><td>15</td><td>39</td></tr>
+                        <tr><td>14</td><td>إلتشي</td><td>34</td><td>9</td><td>11</td><td>14</td><td>38</td></tr>
+                        <tr><td>15</td><td>ريال مايوركا</td><td>34</td><td>10</td><td>8</td><td>16</td><td>38</td></tr>
+                        <tr><td>16</td><td>جيرونا</td><td>34</td><td>9</td><td>11</td><td>14</td><td>38</td></tr>
+                        <tr><td>17</td><td>إشبيلية</td><td>34</td><td>10</td><td>7</td><td>17</td><td>37</td></tr>
+                        <tr><td>18</td><td>ديبورتيفو ألافيس</td><td>34</td><td>9</td><td>9</td><td>16</td><td>36</td></tr>
+                        <tr><td>19</td><td>ليفانتي</td><td>34</td><td>8</td><td>9</td><td>17</td><td>33</td></tr>
+                        <tr><td>20</td><td>ريال أوفييدو</td><td>34</td><td>6</td><td>10</td><td>18</td><td>28</td></tr>
+                        <!-- يمكنك إضافة باقي الـ 20 فريق هنا -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- الدوري الإنجليزي -->
+        <div class="league-wrapper">
+            <div class="league-header" onclick="toggleLeague('premierleague')">
+                <span>🏴󠁧󠁢󠁥󠁮󠁧󠁿 الدوري الإنجليزي (Premier League)</span>
+                <span class="arrow">▼</span>
+            </div>
+            <div id="premierleague" class="league-content">
+                <table>
+                    <thead>
+                        <tr><th>#</th><th>الفريق</th><th>لعب</th><th>فوز</th><th>تعادل</th><th>خسارة</th><th>نقاط</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1</td><td>أرسنال</td><td>35</td><td>23</td><td>7</td><td>5</td><td>76</td></tr>
+                        <tr><td>2</td><td>مانشستر سيتي</td><td>34</td><td>21</td><td>8</td><td>5</td><td>71</td></tr>
+                        <tr><td>3</td><td>مانشستر يونايتد</td><td>35</td><td>18</td><td>10</td><td>7</td><td>64</td></tr>
+                        <tr><td>4</td><td>ليفربول</td><td>35</td><td>17</td><td>7</td><td>11</td><td>58</td></tr>
+                        <tr><td>5</td><td>أستون فيلا</td><td>35</td><td>17</td><td>7</td><td>11</td><td>58</td></tr>
+                        <tr><td>6</td><td>بورنموث</td><td>35</td><td>12</td><td>16</td><td>7</td><td>52</td></tr>
+                        <tr><td>7</td><td>برينتفورد</td><td>35</td><td>14</td><td>9</td><td>12</td><td>51</td></tr>
+                        <tr><td>8</td><td>برايتون</td><td>35</td><td>13</td><td>11</td><td>11</td><td>50</td></tr>
+                        <tr><td>9</td><td>تشيلسي</td><td>35</td><td>13</td><td>9</td><td>13</td><td>48</td></tr>
+                        <tr><td>10</td><td>إيفرتون</td><td>35</td><td>13</td><td>9</td><td>13</td><td>48</td></tr>
+                        <tr><td>11</td><td>فولهام</td><td>35</td><td>14</td><td>10</td><td>13</td><td>48</td></tr>
+                        <tr><td>12</td><td>سندرلاند</td><td>34</td><td>12</td><td>8</td><td>14</td><td>47</td></tr>
+                        <tr><td>13</td><td>نيوكاسل ينوايتد</td><td>35</td><td>13</td><td>10</td><td>14</td><td>45</td></tr>
+                        <tr><td>14</td><td>ليدز يونايتد</td><td>35</td><td>10</td><td>11</td><td>14</td><td>43</td></tr>
+                        <tr><td>15</td><td>كريستال بالاس</td><td>35</td><td>11</td><td>10</td><td>15</td><td>43</td></tr>
+                        <tr><td>16</td><td>نوتينغهام فورست</td><td>35</td><td>11</td><td>12</td><td>15</td><td>42</td></tr>
+                        <tr><td>17</td><td>توتنهام هوتسبير</td><td>35</td><td>9</td><td>10</td><td>15</td><td>37</td></tr>
+                        <tr><td>18</td><td>وست هام يونايتد</td><td>35</td><td>9</td><td>9</td><td>15</td><td>36</td></tr>
+                        <tr><td>19</td><td>بيرنلي</td><td>35</td><td>4</td><td>8</td><td>15</td><td>20</td></tr>
+                        <tr><td>20</td><td>وولفرهامبتون واندررز</td><td>35</td><td>3</td><td>9</td><td>15</td><td>18</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- يمكنك تكرار نفس الهيكل للدوري الإيطالي والألماني والفرنسي -->
+    </div>
+</section>
+
+        <section id="teams" class="page hidden">
+            <h2>أخبار الفرق</h2>
+            <div class="media-grid" id="teamsGrid">
+                <div class="team-card" onclick="showNews('الأهلي')">
+                    <img src="Alahly.jpeg" alt="الأهلي">
+                    <h3>النادي الأهلي</h3>
+                    <p>آخر أخبار النادي الأهلي والصفقات الجديدة</p>
+                </div>
+                <div class="team-card" onclick="showNews('الزمالك')">
+                    <img src="zamalik.jpeg" alt="الزمالك">
+                    <h3>نادي الزمالك</h3>
+                    <p>أخبار نادي الزمالك وتدريبات الفريق</p>
+                </div>
+                <div class="team-card" onclick="showNews('برشلونة')">
+                    <img src="barsa.jpeg" alt="برشلونة">
+                    <h3>برشلونة</h3>
+                    <p>أخبار البارسا ومستجدات الفريق</p>
+                </div>
+                <div class="team-card" onclick="showNews('ريال مدريد')">
+                    <img src="Real.jpeg"alt="ريال مدريد">
+                    <h3>ريال مدريد</h3>
+                    <p>آخر أخبار الميرينجي والدوري الإسباني</p>
+                    
+                </div>
+            </div>
+        </section>
+
+        <!-- الصفحة 5: إحصائيات اللاعبين (جديدة) -->
+        <section id="stats" class="page hidden">
+            <div class="card">
+                <h2>📊 إحصائيات اللاعبين</h2>
+                <h3>⭐ أفضل الهدافين</h3>
+                <div class="stats-grid">
+<!-- تعديل كارت صلاح ليكون متوافق مع محرك البحث الخاص بك -->
+<div class="player-card" data-name="محمد صلاح صلاح Mo Salah">
+    <img src="salah.jpeg" alt="محمد صلاح">
+    <div class="player-info-new">
+        <h4>محمد صلاح</h4>
+        <div class="stat-item">
+            <span class="stat-label">🏆 النادي الحالي</span>
+            <span class="stat-value">ليفربول</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-label">⚽ الأهداف (الدوري)</span>
+            <span class="stat-value">150+</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-label">👟 صناعة أهداف</span>
+            <span class="stat-value">90+</span>
+        </div>
+    </div>
+</div>
+                   <div class="player-card" data-name="هالاند">
+    <img src="Haaland.jpeg" alt="هالاند">
+    <div class="player-info-new">
+        <h4>هالاند</h4>
+        
+        <div class="stat-item">
+            <span class="stat-label">🏆 الدوري الإنجليزي</span>
+            <span class="stat-value">1</span>
+        </div>
+
+        <div class="stat-item">
+            <span class="stat-label">⚽ الأهداف</span>
+            <span class="stat-value">300+</span>
+        </div>
+
+        <div class="stat-item">
+            <span class="stat-label">👟 صناعة أهداف</span>
+            <span class="stat-value">100+</span>
+        </div>
+    </div>
+</div>
+<!-- كارت مبابي - تأكد أنه داخل الـ stats-grid -->
+<div class="player-card" data-name="امبابي كيليان">
+    <img src="Mbappe.jpeg" alt="مبابي">
+    <div class="player-info-new">
+        <h4>كيليان مبابي</h4>
+        
+        <div class="stat-item">
+            <span class="stat-label">⚽ الأهداف</span>
+            <span class="stat-value">330+</span>
+        </div>
+
+        <div class="stat-item">
+            <span class="stat-label">🏆 كأس العالم</span>
+            <span class="stat-value">1</span>
+        </div>
+
+        <div class="stat-item">
+            <span class="stat-label">⚡ السرعة</span>
+            <span class="stat-value">38 km/h</span>
+        </div>
+    </div>
+</div> <!-- نهاية كارت اللاعب - دي أهم قفلة div -->
+                </div>
+                <h3> أفضل صناع اللعب</h3>
+                <div class="stats-grid">
+<!-- كارت دي بروين -->
+<div class="player-card" data-name="دي بروين كيفين">
+    <img src="De Bruyne.jpeg" alt="كيفين دي بروين">
+    <div class="player-info-new">
+        <h4>كيفين دي بروين</h4>
+        
+        <div class="stat-item">
+            <span class="stat-label">🎯 صناعة أهداف</span>
+            <span class="stat-value">280+</span>
+        </div>
+
+        <div class="stat-item">
+            <span class="stat-label">🏆 دوري الأبطال</span>
+            <span class="stat-value">1</span>
+        </div>
+
+        <div class="stat-item">
+            <span class="stat-label">🪄 تمريرات حاسمة</span>
+            <span class="stat-value">عالمية</span>
+        </div>
+    </div>
+</div> <!-- نهاية كارت دي بروين -->
+<!-- كارت ليونيل ميسي -->
+<div class="player-card" data-name="ميسي ليونيل">
+    <img src="messi.jpeg" alt="ليونيل ميسي">
+    <div class="player-info-new">
+        <h4>ليونيل ميسي</h4>
+        
+        <div class="stat-item">
+            <span class="stat-label">🟡 الكرة الذهبية</span>
+            <span class="stat-value">8</span>
+        </div>
+
+        <div class="stat-item">
+            <span class="stat-label">🏆 كأس العالم</span>
+            <span class="stat-value">1</span>
+        </div>
+
+        <div class="stat-item">
+            <span class="stat-label">⚽ الأهداف التاريخية</span>
+            <span class="stat-value">800+</span>
+        </div>
+    </div>
+</div> <!-- نهاية كارت ميسي -->
+<!-- كارت نيمار جونيور -->
+<div class="player-card" data-name="نيمار نيمار">
+    <img src="Neymar.jpeg" alt="نيمار">
+    <div class="player-info-new">
+        <h4>نيمار جونيور</h4>
+        
+        <div class="stat-item">
+            <span class="stat-label">⚽ أهداف دولية</span>
+            <span class="stat-value">79 (برازيلي)</span>
+        </div>
+
+        <div class="stat-item">
+            <span class="stat-label">🏆 دوري الأبطال</span>
+            <span class="stat-value">1</span>
+        </div>
+
+        <div class="stat-item">
+            <span class="stat-label">✨ مهارات فردية</span>
+            <span class="stat-value">استثنائية</span>
+        </div>
+    </div>
+</div> <!-- نهاية كارت نيمار -->
+                </div>
+            </div>
+        </section>
+
+        <!-- الصفحة 6: البطولات (جديدة) -->
+        <section id="tournaments" class="page hidden">
+            <h2>🏆 البطولات الكبرى</h2>
+            <div class="media-grid">
+                <div class="tournament-card">
+                    <img src="CHAMP.jpeg" alt="دوري أبطال أوروبا">
+                    <h3>دوري أبطال أوروبا</h3>
+                    <p>البطل الحالي: مانشستر سيتي</p>
+                    <p>أكثر فريق تتويجاً: ريال مدريد (15 بطولة)</p>
+                </div>
+                <div class="tournament-card">
+                    <img src="English.jpeg" alt="الدوري الإنجليزي">
+                    <h3>الدوري الإنجليزي</h3>
+                    <p>البطل الحالي: مانشستر سيتي</p>
+                    <p>أكثر فريق تتويجاً: مانشستر يونايتد (20)</p>
+                </div>
+                <div class="tournament-card">
+                    <img src="Laiga.jpeg" alt="الدوري الإسباني">
+                    <h3>الدوري الإسباني</h3>
+                    <p>البطل الحالي: برشلونة</p>
+                    <p>أكثر فريق تتويجاً: ريال مدريد (34)</p>
+                </div>
+                <div class="tournament-card">
+                    <img src="talian.jpeg" alt="الدوري الإيطالي">
+                    <h3>الدوري الإيطالي</h3>
+                    <p>البطل الحالي: نابولي</p>
+                    <p>أكثر فريق تتويجاً: يوفنتوس (36)</p>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- الصفحة 8: اتصل بنا -->
+        <section id="contact" class="page hidden">
+            <div class="card">
+                <h2>تواصل مع فريق الساحِرة المُستديرة</h2>
+                <form id="koraForm" class="contact-form">
+                    <input type="text" id="username" placeholder="اسم المستخدم (الاسم الكامل)" required>
+                    <p id="nameErr" class="err-msg">يرجى كتابة الاسم بالكامل (الاسم واللقب).</p>
+                    
+                    <input type="text" id="useremail" placeholder="البريد الإلكتروني" required>
+                    <p id="emailErr" class="err-msg">صيغة البريد الإلكتروني غير صحيحة.</p>
+                    
+                    <select id="subject" style="padding: 12px; border-radius: 4px;">
+                        <option>استفسار عام</option>
+                        <option>شكوى أو اقتراح</option>
+                        <option>مشكلة تقنية</option>
+                        <option>طلب تعاون</option>
+                    </select>
+                    
+                    <textarea rows="4" id="message" placeholder="رسالتك..."></textarea>
+                    <button type="submit" class="btn" >إرسال البيانات</button>
+                </form>
+            </div>
+        </section>
+    </div>
+
+
+    <div id="imageModal" class="modal" onclick="closeModal()">
+        <img class="modal-img" id="modalImage">
+    </div>
+
+    <footer>
+     <div>
+        <h3>الساحرة المستديرة</h3>
+        <p>موقعك الأول لكل ما يخص كرة القدم</p>
+        <p>أخبار - إحصائيات - ترتيب</p>
+     </div>
+
+     <div>
+        <h3>أقسام الموقع</h3>
+        <p>أخبار الفرق</p>
+        <p>المباريات</p>
+        <p>الترتيب</p>
+     </div>
+
+      <div>
+        <h3>تابعونا</h3>
+        <p>📧 info@Al Sahira Al Mostadira.com</p>
+      </div>
+
+       <div class="copyright">
+         © 2026 جميع الحقوق محفوظة
+       </div>
+    </footer>
+
+
+    <script>
+         function toggleTheme() {
+         const html = document.documentElement;
+         const btn = document.getElementById('themeBtn');
+
+         if (html.getAttribute('data-theme') === 'light') {
+        html.setAttribute('data-theme', 'dark');
+        btn.innerText = "☀️";
+        localStorage.setItem('kora_theme', 'dark');
+        } else {
+        html.setAttribute('data-theme', 'light');
+        btn.innerText = "🌙";
+        localStorage.setItem('kora_theme', 'light');
+        }
+        }
+    
+
+        window.addEventListener("load", () => {
+    const saved = localStorage.getItem('kora_theme');
+    const btn = document.getElementById('themeBtn');
+
+    if (saved === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        btn.innerText = "☀️";
+    } else {
+        btn.innerText = "🌙";
+    }
+
+    // حالة تسجيل الدخول
+    if (localStorage.getItem("loggedIn") === "true") {
+        document.querySelector(".login-btn").innerText = "👤 تم الدخول";
+    }
+});
+
+        // عرض الصفحات
+        function showPage(id) {
+            document.querySelectorAll('.page').forEach(p => p.classList.add('hidden'));
+            document.getElementById(id).classList.remove('hidden');
+            
+            // حفظ الصفحة الحالية في localStorage
+            localStorage.setItem('currentPage', id);
+        }
+
+        // عرض أخبار الفرق (تنبيه تجريبي)
+        function showNews(teamName) {
+            alert(`📰 أخبار فريق ${teamName}\n\nسيتم تحديث الأخبار قريباً! تابعنا للمزيد من التفاصيل.`);
+        }
+
+        // فتح نافذة عرض الصور
+        function openModal(imgSrc) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            modal.style.display = "block";
+            modalImg.src = imgSrc;
+        }
+
+        // إغلاق نافذة الصور
+        function closeModal() {
+            document.getElementById('imageModal').style.display = "none";
+        }
+
+        // التحقق من صحة النموذج
+        document.getElementById('koraForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            let valid = true;
+            const name = document.getElementById('username').value;
+            const email = document.getElementById('useremail').value;
+
+            // التحقق من الاسم (يجب أن يحتوي على اسمين على الأقل)
+            if (name.trim().split(' ').length < 2) {
+                document.getElementById('nameErr').style.display = 'block';
+                valid = false;
+            } else {
+                document.getElementById('nameErr').style.display = 'none';
+            }
+
+            // التحقق من البريد الإلكتروني
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                document.getElementById('emailErr').style.display = 'block';
+                valid = false;
+            } else {
+                document.getElementById('emailErr').style.display = 'none';
+            }
+
+            if (valid) {
+                alert('✅ تم استلام رسالتك بنجاح! سنتواصل معك قريباً.');
+                sessionStorage.setItem('last_contact_name', name);
+                this.reset();
+            }
+        });
+
+        // استعادة آخر صفحة تم تصفحها
+        const lastPage = localStorage.getItem('currentPage');
+        if (lastPage && lastPage !== 'home') {
+            showPage(lastPage);
+        }
+        function openLogin() {
+    document.getElementById("loginModal").style.display = "flex";
+}
+
+function closeLogin() {
+    document.getElementById("loginModal").style.display = "none";
+}
+
+function login() {
+    const user = document.getElementById("loginUser").value;
+    const pass = document.getElementById("loginPass").value;
+
+    if (user === "admin" && pass === "1234") {
+        alert("✅ تم تسجيل الدخول");
+        localStorage.setItem("loggedIn", "true");
+        closeLogin();
+
+        document.querySelector(".login-btn").innerText = "👤 تم الدخول";
+    } else {
+        alert("❌ بيانات غلط");
+    }
+}
+    let keywords = {
+    // لاعبين
+    "ميسي": "stats",
+    "ليونيل ميسي": "stats",
+    "صلاح": "stats",
+    "محمد صلاح": "stats",
+    "هالاند": "stats",
+    "مبابي": "stats",
+    "بنزيما": "stats",
+    "نيمار": "stats",
+
+    // فرق
+    "الأهلي": "teams",
+    "الزمالك": "teams",
+    "برشلونة": "teams",
+    "ريال مدريد": "teams",
+
+    // جدول
+    "ترتيب": "table",
+    "الدوري الإسباني": "table",
+    "laliga": "table",
+    "ريال": "table",
+    "برشلونة ترتيب": "table"
+};
+document.getElementById("searchInput").addEventListener("keypress", function (e) {
+    if (e.key !== "Enter") return;
+
+    let value = this.value.trim();
+    let players = document.querySelectorAll(".player-card");
+    let sectionTitles = document.querySelectorAll("#stats h3"); 
+    let grids = document.querySelectorAll(".stats-grid"); // السكاشن اللي شايلة الكروت
+    let playerFound = false;
+
+    if (value === "") {
+        // حالة المسح: نرجع كل شيء لأصله
+        players.forEach(card => card.style.display = "block");
+        sectionTitles.forEach(title => title.style.display = "block");
+        grids.forEach(grid => grid.style.display = "grid");
+        showPage("stats");
+        return;
+    }
+
+    players.forEach(card => {
+        let name = card.getAttribute("data-name") || "";
+        if (name.includes(value)) {
+            card.style.display = "block";
+            playerFound = true;
+        } else {
+            card.style.display = "none";
+        }
+    });
+
+    if (playerFound) {
+        // 1. إخفاء كل العناوين عشان الكارت يطلع فوق
+        sectionTitles.forEach(title => title.style.display = "none");
+        
+        // 2. معالجة الـ Grids عشان الفراغات تختفي
+        grids.forEach(grid => {
+            // لو الـ grid ده مفيش جواه ولا لاعب ظاهر، نخفيه تماماً
+            const hasVisiblePlayers = Array.from(grid.querySelectorAll(".player-card"))
+                                           .some(card => card.style.display === "block");
+            grid.style.display = hasVisiblePlayers ? "grid" : "none";
+            
+            // عشان نضمن الكارت ميبقاش ضخم زي الصورة اللي فاتت
+            grid.style.gridTemplateColumns = "repeat(auto-fit, 300px)";
+            grid.style.justifyContent = "center";
+        });
+
+        showPage("stats");
+    } else {
+        alert("لم يتم العثور على لاعب بهذا الاسم");
+    }
+});
+function highlightElements(page, value) {
+    let elements = page.querySelectorAll("h1, h2, h3, h4, p, td");
+
+    elements.forEach(el => {
+        if (el.innerText.toLowerCase().includes(value)) {
+            el.style.background = "#ffe082";
+        } else {
+            el.style.background = "transparent";
+        }
+    });
+}
+
+function highlightResult(pageId, keyword) {
+    let page = document.getElementById(pageId);
+    highlightElements(page, keyword);
+} 
+function showOnlyPlayer(name) {
+    let cards = document.querySelectorAll(".player-card");
+
+    cards.forEach(card => {
+        let playerName = card.getAttribute("data-name");
+
+        if (playerName.includes(name)) {
+            card.style.display = "block";
+        } else {
+            card.style.display = "none";
+        }
+    });
+}
+
+function showOnlyImage(name) {
+    let cards = document.querySelectorAll(".player-card");
+
+    cards.forEach(card => {
+        let playerName = card.getAttribute("data-name");
+        let img = card.querySelector(".player-img");
+        let info = card.querySelector(".player-info");
+
+        if (playerName.includes(name)) {
+            card.style.display = "block";
+            img.style.display = "block";
+            if (info) info.style.display = "none";
+        } else {
+            card.style.display = "none";
+        }
+    });
+}
+
+function resetPlayers() {
+    document.querySelectorAll(".player-card").forEach(card => {
+        card.style.display = "block";
+
+        let img = card.querySelector(".player-img");
+        let info = card.querySelector(".player-info");
+
+        if (img) img.style.display = "block";
+        if (info) info.style.display = "block";
+    });
+}
+function resetAllPlayersView() {
+    document.querySelectorAll(".player-card").forEach(card => {
+        card.style.display = "block";
+
+        let img = card.querySelector("img");
+        let info = card.querySelector(".player-info");
+
+        if (img) img.style.display = "block";
+        if (info) info.style.display = "block";
+    });
+}
+function goToStats() {
+    document.getElementById("searchInput").value = "";
+    resetAllPlayersView();
+    showPage("stats");
+}
+function toggleLeague(leagueId) {
+    // إغلاق أي دوري مفتوح حالياً (اختياري - إذا كنت تريد فتح واحد فقط في كل مرة)
+    // document.querySelectorAll('.league-content').forEach(el => {
+    //     if(el.id !== leagueId) el.style.display = 'none';
+    // });
+
+    const content = document.getElementById(leagueId);
+    const header = content.previousElementSibling;
+
+    if (content.style.display === "block") {
+        content.style.display = "none";
+        header.classList.remove("active");
+    } else {
+        content.style.display = "block";
+        header.classList.add("active");
+    }
+}
+    </script>
+</body>
+</html>
